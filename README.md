@@ -30,3 +30,11 @@ Database: MongoDB / Firebase
 - Integration with Government Cyber Crime Portal
 - Mobile App
 - Real time scam detection
+
+## Team
+
+Team Name: Shadow
+
+- Rushikesh Jadhao – Backend Development & NLP
+- Piyush Raj – Frontend Development & Generative AI
+- Hrijiscrita Baruah – Database Design & Management
