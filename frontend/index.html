@@ -1,1 +1,573 @@
-Legal Shield AI Frontend
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEGAL SHIELD AI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+            color: #1f2937;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: 28px auto;
+        }
+
+        .hero {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            color: #111827;
+        }
+
+        .hero p {
+            margin: 0;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .action-card {
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #1d4ed8;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            background: #eff6ff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            margin-bottom: 22px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #111827;
+            font-size: 22px;
+        }
+
+        .small {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: -4px;
+            margin-bottom: 14px;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 10px 0 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea:focus,
+        input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: 6px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #0f766e;
+        }
+
+        .btn-secondary:hover {
+            background: #0d5f5a;
+        }
+
+        .btn-dark {
+            background: #334155;
+        }
+
+        .btn-dark:hover {
+            background: #1e293b;
+        }
+
+        .btn-red {
+            background: #dc2626;
+        }
+
+        .btn-red:hover {
+            background: #b91c1c;
+        }
+
+        .result-box {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            background: #f8fafc;
+            border-left: 5px solid #2563eb;
+            white-space: pre-wrap;
+            min-height: 70px;
+            line-height: 1.6;
+        }
+
+        .danger {
+            background: #fef2f2;
+            border-left-color: #dc2626;
+        }
+
+        .safe {
+            background: #f0fdf4;
+            border-left-color: #16a34a;
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .info-box {
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            padding: 16px;
+            border-radius: 14px;
+        }
+
+        .info-box h4 {
+            margin: 0 0 8px 0;
+            color: #1e3a8a;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .file-note {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: -6px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .hero h2 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>LEGAL SHIELD AI</h1>
+        <p>AI Powered Cyber Crime Detection & Legal Assistant</p>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>होम / डैशबोर्ड</h2>
+            <p>
+                यह प्लेटफॉर्म संदिग्ध संदेश, लिंक या साइबर फ्रॉड से जुड़ी जानकारी को जाँचने,
+                कानूनी सलाह देने, शिकायत ड्राफ्ट तैयार करने और evidence संभालने में मदद करता है।
+            </p>
+
+            <div class="quick-actions">
+                <div class="action-card" onclick="scrollToSection('scamSection')">Scan Link</div>
+                <div class="action-card" onclick="scrollToSection('complaintSection')">Upload Screenshot</div>
+                <div class="action-card" onclick="scrollToSection('scamSection')">AI Legal Chat</div>
+                <div class="action-card" onclick="scrollToSection('complaintSection')">File Complaint</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div>
+                <div class="card" id="scamSection">
+                    <h3>Scam Detector</h3>
+                    <p class="small">संदिग्ध संदेश, ईमेल या लिंक का text यहाँ paste करें।</p>
+
+                    <textarea id="scamText" placeholder="उदाहरण: Your bank account will be blocked. Click now and share OTP."></textarea>
+
+                    <button class="btn" onclick="checkScam()">Scam Check</button>
+                    <button class="btn btn-secondary" onclick="getLegalAdvice()">Legal Advice</button>
+
+                    <div id="scamResult" class="result-box">यहाँ result दिखाई देगा।</div>
+                </div>
+
+                <div class="card" id="complaintSection">
+                    <h3>Complaint Generator</h3>
+                    <p class="small">नाम, संपर्क, incident और evidence भरें, फिर complaint draft बनाएँ।</p>
+
+                    <input type="text" id="name" placeholder="अपना नाम लिखें">
+                    <input type="text" id="contact" placeholder="मोबाइल नंबर या ईमेल लिखें">
+                    <textarea id="incidentText" placeholder="घटना का विवरण लिखें..."></textarea>
+
+                    <input type="file" id="evidence" accept=".jpg,.jpeg,.png,.pdf">
+                    <div class="file-note" id="fileNote">अभी कोई file चुनी नहीं गई है।</div>
+
+                    <button class="btn" onclick="generateComplaint()">Complaint Generate</button>
+                    <button class="btn btn-dark" onclick="downloadComplaint()">Complaint Download</button>
+                    <button class="btn btn-red" onclick="goToCyberPortal()">Cyber Crime Portal</button>
+
+                    <div id="complaintResult" class="result-box">Complaint draft यहाँ दिखाई देगा।</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card">
+                    <h3>Complaint Records</h3>
+                    <p class="small">Backend में saved complaints को यहाँ देखें।</p>
+
+                    <button class="btn btn-dark" onclick="loadComplaints()">Load Complaints</button>
+
+                    <div id="complaintsList" class="result-box">अभी कोई complaint load नहीं हुई है।</div>
+                </div>
+
+                <div class="card">
+                    <h3>System Features</h3>
+                    <div class="info-list">
+                        <div class="info-box">
+                            <h4>AI Detection</h4>
+                            <p>Keyword-based scam detection से suspicious content की पहचान।</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Legal Guidance</h4>
+                            <p>Applicable cyber laws और next steps की जानकारी।</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Complaint Draft</h4>
+                            <p>User input के आधार पर cyber complaint draft generate।</p>
+                        </div>
+                        <div class="info-box">
+                            <h4>Evidence Upload</h4>
+                            <p>Photo या PDF evidence चुनकर complaint के साथ attach करने का basic support।</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = "http://127.0.0.1:7000";
+
+        document.getElementById("evidence").addEventListener("change", function () {
+            const file = this.files[0];
+            const note = document.getElementById("fileNote");
+
+            if (file) {
+                note.innerText = `Selected File: ${file.name}`;
+            } else {
+                note.innerText = "अभी कोई file चुनी नहीं गई है।";
+            }
+        });
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+        }
+
+        async function checkScam() {
+            const text = document.getElementById("scamText").value.trim();
+            const resultBox = document.getElementById("scamResult");
+
+            if (!text) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "कृपया पहले suspicious text डालें।";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/check-scam`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    resultBox.className = "result-box danger";
+                    resultBox.innerText = data.error || "कुछ गलत हो गया।";
+                    return;
+                }
+
+                const result = data.result;
+                resultBox.className = result.safe ? "result-box safe" : "result-box danger";
+                resultBox.innerText =
+`Status: ${result.status}
+Severity: ${result.severity}
+Matched Keywords: ${result.matched_keywords.join(", ") || "None"}
+Threat Types: ${result.threat_types.join(", ")}
+Applicable Laws: ${result.applicable_laws.join(", ") || "Not specified"}
+
+Advice:
+- ${result.advice.join("\n- ")}`;
+            } catch (error) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "Backend connection error. सुनिश्चित करें कि server port 7000 पर चल रहा है।";
+            }
+        }
+
+        async function getLegalAdvice() {
+            const text = document.getElementById("scamText").value.trim();
+            const resultBox = document.getElementById("scamResult");
+
+            if (!text) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "कृपया पहले suspicious text डालें।";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/legal-advice`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    resultBox.className = "result-box danger";
+                    resultBox.innerText = data.error || "कुछ गलत हो गया।";
+                    return;
+                }
+
+                resultBox.className = "result-box";
+                resultBox.innerText =
+`Summary: ${data.summary}
+Threat Types: ${data.threat_types.join(", ")}
+Applicable Laws: ${data.applicable_laws.join(", ") || "Not specified"}
+
+Recommended Steps:
+- ${data.recommended_steps.join("\n- ")}
+
+Advice:
+- ${data.advice.join("\n- ")}`;
+            } catch (error) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "Backend connection error. सुनिश्चित करें कि server port 7000 पर चल रहा है।";
+            }
+        }
+
+        async function generateComplaint() {
+            const name = document.getElementById("name").value.trim();
+            const contact = document.getElementById("contact").value.trim();
+            const incidentText = document.getElementById("incidentText").value.trim();
+            const evidenceFile = document.getElementById("evidence").files[0];
+            const resultBox = document.getElementById("complaintResult");
+
+            if (!name || !contact || !incidentText) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "कृपया सभी fields भरें।";
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/generate-complaint`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        contact,
+                        incident_text: incidentText
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    resultBox.className = "result-box danger";
+                    resultBox.innerText = data.error || "Complaint generation failed.";
+                    return;
+                }
+
+                let evidenceText = "";
+                if (evidenceFile) {
+                    evidenceText = `\n\nAttached Evidence: ${evidenceFile.name}`;
+                }
+
+                resultBox.className = "result-box";
+                resultBox.innerText =
+`Complaint ID: ${data.complaint_id}
+
+${data.complaint_draft}${evidenceText}`;
+            } catch (error) {
+                resultBox.className = "result-box danger";
+                resultBox.innerText = "Backend connection error. सुनिश्चित करें कि server port 7000 पर चल रहा है।";
+            }
+        }
+
+        function downloadComplaint() {
+            const complaintText = document.getElementById("complaintResult").innerText.trim();
+
+            if (!complaintText || complaintText === "Complaint draft यहाँ दिखाई देगा।") {
+                alert("पहले complaint generate करें।");
+                return;
+            }
+
+            const blob = new Blob([complaintText], { type: "text/plain" });
+            const link = document.createElement("a");
+
+            link.href = URL.createObjectURL(blob);
+            link.download = "complaint_draft.txt";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function goToCyberPortal() {
+            window.open("https://cybercrime.gov.in", "_blank");
+        }
+
+        async function loadComplaints() {
+            const listBox = document.getElementById("complaintsList");
+
+            try {
+                const response = await fetch(`${BASE_URL}/complaints`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    listBox.className = "result-box danger";
+                    listBox.innerText = "Complaints load नहीं हो पाईं।";
+                    return;
+                }
+
+                if (!data.complaints.length) {
+                    listBox.className = "result-box";
+                    listBox.innerText = "कोई complaint नहीं मिली।";
+                    return;
+                }
+
+                let output = `Total Complaints: ${data.total_complaints}\n\n`;
+
+                data.complaints.forEach((item, index) => {
+                    output +=
+`Complaint ${index + 1}
+Name: ${item.name}
+Contact: ${item.contact}
+Status: ${item.status}
+Severity: ${item.severity}
+Laws: ${item.laws.join(", ") || "Not specified"}
+Created At: ${item.created_at}
+
+`;
+                });
+
+                listBox.className = "result-box";
+                listBox.innerText = output;
+            } catch (error) {
+                listBox.className = "result-box danger";
+                listBox.innerText = "Backend connection error. सुनिश्चित करें कि server port 7000 पर चल रहा है।";
+            }
+        }
+    </script>
+</body>
+</html>
